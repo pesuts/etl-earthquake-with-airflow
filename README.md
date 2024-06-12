@@ -46,7 +46,9 @@ Proses loading dilakukan dengan Apache Airflow, di mana data yang sudah disimpan
 
 #### 4. Screenshots
 
-![](Screenshot%20(2435).png)
-![](Screenshot%20(2431).png)
-![](Screenshot%20(2434).png)
-![](Screenshot%20(2436).png)
+![](airflow.png)
+![](pentaho.png)
+![](database.png)
+![](gcs.png)
+![](bigquery.png)
+![](bigquery2.png)
