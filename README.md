@@ -46,7 +46,7 @@ Proses loading dilakukan dengan Apache Airflow, di mana data yang sudah disimpan
 
 #### 4. Screenshots
 
-![](erd-data-warehouse.png)
+![](erd-data-warehouse.jpg)
 ![](screenshots/airflow.png)
 ![](screenshots/pentaho.png)
 ![](screenshots/database.png)
