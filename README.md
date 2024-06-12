@@ -1,6 +1,12 @@
-## Documentasi Proyek Data Engineer: ETL Dataset Gempa Bumi
+## Proyek Data Engineer: ETL Dataset Gempa Bumi
 
-### 1. Pendahuluan
+### Sumber Data
+https://earthquake.usgs.gov/earthquakes/feed/v1.0/csv.php
+
+### Dokumentasi Data
+https://earthquake.usgs.gov/data/comcat/data-eventterms.php#net
+
+### 1. Intro
 
 Proyek ini bertujuan untuk melakukan proses ETL (Extract, Transform, Load) pada dataset gempa bumi. Data gempa bumi akan diintegrasikan dengan data demografi, geologi, infrastruktur, dan historis. Proses ETL ini dilakukan dengan menggunakan beberapa alat yaitu Pentaho, Apache Spark, Google Cloud Storage (GCS), dan Google BigQuery, serta diatur dengan Apache Airflow.
 
