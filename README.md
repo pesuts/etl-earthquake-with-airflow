@@ -46,10 +46,11 @@ Proses loading dilakukan dengan Apache Airflow, di mana data yang sudah disimpan
 
 #### 4. Screenshots
 
+![](dashboard.jpg)
 ![](erd-data-warehouse.jpg)
 ![](screenshots/airflow.png)
 ![](screenshots/pentaho.png)
-![](screenshots/database.png)
+![](screenshots/erd_oltp.png)
 ![](screenshots/gcs.png)
 ![](screenshots/bigquery.png)
 ![](screenshots/bigquery2.png)

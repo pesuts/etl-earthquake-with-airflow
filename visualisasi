@@ -1,0 +1,113 @@
+1. Total Earthquake
+chart: Scoreboard
+Metric: Record count
+data source: fact_earthquake
+
+2. Average Magnitudes
+chart: Scoreboard
+Metric: Average Magnitudes
+data source: fact_earthquake
+
+3. Average Depth (km)
+chart: Scoreboard
+Metric: Average depth
+data source: fact_earthquake
+
+4. Max Magnitudes
+chart: Scoreboard
+Metric: Max Magnitudes
+data source: fact_earthquake
+
+5. Peta Sebaran Gempa
+chart: Google Maps
+fields: 
+  location: coordinate (CONCAT(latitude, ', ', longitude))
+tooltip: mag
+data source: view_earthquake_locations
+query:
+  CREATE OR REPLACE VIEW `practice-413515.de_final_project.view_earthquake_locations` AS
+  SELECT 
+    l.latitude, 
+    l.longitude, 
+    f.mag, 
+    f.depth 
+  FROM 
+    `practice-413515.de_final_project.fact_earthquake` f
+  JOIN 
+    `practice-413515.de_final_project.dim_location` l ON f.location_id = l.location_id;
+
+6. Gempa Berdasarkan Region
+chart: Donut Chart
+dimension: region
+metric: earthquake_count
+sort: earthquake_count (desc)
+data source: view_region_count
+query:
+  CREATE OR REPLACE VIEW `practice-413515.de_final_project.view_region_count` AS
+  SELECT 
+    l.region,
+    COUNT(*) AS earthquake_count
+  FROM 
+    `practice-413515.de_final_project.dim_location` l
+  JOIN 
+    `practice-413515.de_final_project.fact_earthquake` f
+  ON l.location_id = f.location_id
+  GROUP BY l.region;
+
+7. Earthquake Types
+chart: Treemap
+dimension: mag_type
+metric: count
+data source: view_earthquake_mag_type_pie
+query:
+  CREATE OR REPLACE VIEW `practice-413515.de_final_project.view_earthquake_mag_type_pie` AS
+  SELECT 
+    f.mag_type, 
+    COUNT(*) AS count 
+  FROM 
+    `practice-413515.de_final_project.fact_earthquake` f
+  GROUP BY 
+    f.mag_type;
+
+8. Affected Infrastructure
+chart: Column chart
+dimension: building_type, construction_quality
+metric: earthquake_counts
+sort: earthquake_counts (desc)
+data source: view_earthquake_infrastructure_impact
+query:
+  CREATE OR REPLACE VIEW `practice-413515.de_final_project.view_earthquake_infrastructure_impact` AS
+  SELECT 
+    i.building_type, 
+    i.construction_quality, 
+    COUNT(*) AS earthquake_count 
+  FROM 
+    `practice-413515.de_final_project.dim_infrastructure` i
+  JOIN `practice-413515.de_final_project.fact_earthquake` f
+  ON i.infrastructure_id = f.infrastructure_id
+  GROUP BY 
+    i.building_type, 
+    i.construction_quality;
+
+9. Earthquakes Daily
+chart: Line chart
+dimension: month_day
+metric: sum(earthquake_count)
+sort: earthquake_count (desc)
+data source: view_earthquake_daily
+query:
+  CREATE OR REPLACE VIEW `practice-413515.de_final_project.view_earthquake_daily` AS
+  SELECT 
+    CONCAT(
+      t.day, ' ', 
+      CASE 
+      WHEN t.month = 5 THEN 'May'
+      WHEN t.month = 6 THEN 'June'
+      END) AS month_day,
+    COUNT(*) AS earthquake_count 
+  FROM 
+    `practice-413515.de_final_project.fact_earthquake` f
+  JOIN 
+    `practice-413515.de_final_project.dim_time` t ON f.time_id = t.time_id
+  GROUP BY month_day;
+
